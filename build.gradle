@@ -46,9 +46,10 @@ configurations {
 }
 
 dependencies {
+    compile('joda-time:joda-time')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
-    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.data:spring-data-mongodb')
     
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

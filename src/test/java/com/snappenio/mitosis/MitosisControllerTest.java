@@ -1,4 +1,4 @@
-package com.snappenio.mitosis.controller;
+package com.snappenio.mitosis;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MainControllerTest {
+public class MitosisControllerTest {
 
     @Autowired
     private MockMvc mvc;

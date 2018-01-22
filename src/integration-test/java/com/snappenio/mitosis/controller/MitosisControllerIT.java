@@ -1,7 +1,5 @@
 package com.snappenio.mitosis.controller;
 
-import java.net.URL;
-
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,9 +12,11 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.net.URL;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MainControllerIT {
+public class MitosisControllerIT {
 
     @LocalServerPort
     private int port;
@@ -32,7 +32,7 @@ public class MainControllerIT {
     }
 
     @Test
-    public void testWelcomePage() throws Exception {
+    public void testWelcomePage() {
         ResponseEntity<String> response = template.getForEntity(url.toString(),String.class);
         Assert.assertThat(response.getBody(), Matchers.equalTo("Welcome to snappen.io!"));
     }
