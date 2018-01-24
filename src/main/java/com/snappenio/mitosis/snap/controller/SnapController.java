@@ -5,7 +5,7 @@ import com.snappenio.mitosis.codepen.service.CodepenService;
 import com.snappenio.mitosis.snap.model.Snap;
 import com.snappenio.mitosis.snap.model.SnapRequest;
 import com.snappenio.mitosis.snap.model.SnapResponse;
-import com.snappenio.mitosis.snap.repository.SnapRepository;
+import com.snappenio.mitosis.snap.service.SnapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +26,17 @@ public class SnapController {
     private static final Logger logger = LoggerFactory.getLogger(SnapController.class);
 
     private final CodepenService codepenService;
-    private final SnapRepository snapRepository;
+    private final SnapService snapService;
 
     @Autowired
-    public SnapController(CodepenService codepenService, SnapRepository snapRepository) {
+    public SnapController(CodepenService codepenService, SnapService snapService) {
         this.codepenService = codepenService;
-        this.snapRepository = snapRepository;
+        this.snapService = snapService;
     }
 
     @RequestMapping(value = "/{snapId}", method = RequestMethod.GET)
-    public ResponseEntity<Snap> getSnap(@PathVariable String snapId) {
-        Optional<Snap> snapOptional = snapRepository.getSnap(snapId);
+    public ResponseEntity<Snap> getSnap(@PathVariable("snapId") String snapId) {
+        Optional<Snap> snapOptional = snapService.getSnap(snapId);
         if (snapOptional.isPresent()) {
             return new ResponseEntity<>(snapOptional.get(), HttpStatus.OK);
         }
@@ -51,11 +51,7 @@ public class SnapController {
         if (codepenOptional.isPresent()) {
             Codepen codepen = codepenOptional.get();
 
-            Snap snap = new Snap(codepen.getHtml(), codepen.getCss(), codepen.getJs());
-
-            snapRepository.insertSnap(snap);
-
-            String snapId = snap.getSnapId();
+            String snapId = snapService.insertSnap(codepen);
 
             return new ResponseEntity<>(new SnapResponse(snapId), HttpStatus.OK);
         }

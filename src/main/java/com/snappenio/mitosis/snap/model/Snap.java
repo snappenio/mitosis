@@ -1,5 +1,6 @@
 package com.snappenio.mitosis.snap.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -8,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 public class Snap {
 
     @Id
+    @JsonProperty("snap_id")
     private String snapId;
 
     private String html;
